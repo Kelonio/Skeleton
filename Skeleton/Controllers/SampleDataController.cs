@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 namespace Skeleton.Controllers
 {
     [Route("api/[controller]")]
@@ -14,7 +18,7 @@ namespace Skeleton.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
+        [HttpGet("[action]"),Authorize(Roles = "Admin")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();
