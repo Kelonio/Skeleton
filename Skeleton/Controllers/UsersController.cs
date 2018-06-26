@@ -23,11 +23,33 @@ namespace Skeleton.Controllers
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
 
-        public UsersController(UserManager<User> userManager, DataContext dataContext, IMapper mapper)
+        private readonly IUserService _userService;
+
+        public UsersController(UserManager<User> userManager, DataContext dataContext, IMapper mapper, IUserService userService)
         {
             _userManager = userManager;
             _dataContext = dataContext;
             _mapper = mapper;
+            _userService = userService;
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/user/token")]
+        public async Task<IActionResult> CreateToken([FromBody]UserLoginDto login)
+        {
+            var token = await _userService.CreateToken(login.Email, login.Password);
+
+            return token == "" ? (IActionResult)Unauthorized() : Ok(new { token });
+
+            /*
+            if (token=="")
+                return Unauthorized();
+            else
+                return Ok(new {token = token });
+            */
+
         }
 
         [AllowAnonymous]

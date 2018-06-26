@@ -155,6 +155,9 @@ namespace Skeleton
             });
 
 
+            // configure DI for application services esto hay que hacerlo con patron composition root
+            services.AddScoped<IUserService, UserService>();
+
 
         }
 
