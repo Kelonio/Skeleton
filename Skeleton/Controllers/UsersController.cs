@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
-
-
+using Skeleton.Helpers;
 using Skeleton.Models;
 using Skeleton.Services;
 
@@ -71,6 +69,30 @@ namespace Skeleton.Controllers
             return userDtos;
         }
 
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/createuser")]
+        public async Task<IActionResult> CreateUser([FromBody]UserDto newUserDto)
+        {
+            User newUser = _mapper.Map<User>(newUserDto);
+            try
+            {
+                User user = await _userService.Create(newUser);
+                UserDto userDto = _mapper.Map<UserDto>(user);
+                return Ok(userDto);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        /*
         [AllowAnonymous]
         [HttpPost]
         [Route("api/createuser")]
@@ -90,5 +112,8 @@ namespace Skeleton.Controllers
             return Ok(user);
 
         }
+        */
+
+
     }
 }

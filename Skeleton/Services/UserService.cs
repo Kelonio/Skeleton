@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Skeleton.Helpers;
 using Skeleton.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Skeleton.Services
     public interface IUserService
     {
         Task<string> CreateToken(string Email, string Password);
+        Task<User> Create(User newUser);
     }
 
 
@@ -40,7 +42,12 @@ namespace Skeleton.Services
             _mapper = mapper;
             _config = config;
         }
-        
+        /// <summary>
+        /// Crea una JWT para un usuario
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <param name="Password"></param>
+        /// <returns>string token</returns>
 
         public async Task<string> CreateToken(string Email,string Password )
         {
@@ -79,6 +86,37 @@ namespace Skeleton.Services
             return ""; //si devovemos una token vacia es que no se autentifica
 
         }
+
+        /// <summary>
+        /// Funcion que crea un usuario nuevo, siempre con role user
+        /// </summary>
+        /// <param name="newUser"></param>
+        /// <returns>user</returns>
+        /// 
+        public async Task<User> Create(User newUser)
+        {
+            var user = new User { UserName = newUser.UserName,
+                                  Email = newUser.Email,
+                                  SecurityStamp = Guid.NewGuid().ToString("D")
+                                };
+
+            IdentityResult result = await _userManager.CreateAsync(user, newUser.Password);
+
+            
+            if (!result.Succeeded) 
+                throw new AppException(result.Errors.First().Description); //sacamos solo el primero, result.error es un array
+
+
+            var roleresult = await _userManager.AddToRoleAsync(user, "User");
+
+            if (!roleresult.Succeeded)
+                throw new AppException(roleresult.Errors.First().Description);               
+            
+
+            return user;
+        }
+
+
 
     }
 }
