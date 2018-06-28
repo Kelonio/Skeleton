@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
 //import { routes } from './../app-routing.module';
 
-import { AuthenticationService } from '.././services/authentication';
+import { AuthenticationService } from '.././services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('LoginComponent', () => {

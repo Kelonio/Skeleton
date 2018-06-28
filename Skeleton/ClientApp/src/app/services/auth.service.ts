@@ -37,13 +37,18 @@ export class AuthenticationService {
 
   public isAuthenticated(): boolean {
 
-    const token = this.getToken();
-      
+    const token = this.getToken();      
 
     // Check whether the token is expired and return
     // true or false
-    if (token != null)
-      return jwtHelper.isTokenExpired(token);
+    if (token != null) {
+      if (jwtHelper.isTokenExpired(token)) {
+        //si esta caducada la borramos
+        localStorage.removeItem('currentUser');
+        return false;
+      };
+      return true;
+    }      
     else
       false;
   }

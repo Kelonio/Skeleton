@@ -17,7 +17,7 @@ import { AlertComponent } from './alert/alert.component';
 
 
 import { JwtInterceptor } from './helpers/jwt.interceptor';
-import { AuthenticationService } from './services/authentication';
+import { AuthenticationService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { AlertService } from './services/alert.service';
 
