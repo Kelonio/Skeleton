@@ -30,10 +30,6 @@ export class RoleGuard implements CanActivate {
     });
     */
 
-
-    console.log('this.auth.isAuthenticated()');
-    console.log(this.auth.isAuthenticated());
-
     // esto se utiliza en otro guard , pero deberia poder hacerse de otra forma, commo intente arriba
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });

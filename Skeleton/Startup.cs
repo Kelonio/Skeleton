@@ -195,10 +195,6 @@ namespace Skeleton
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "mvc/{controller=Account}/{action=Index}/{id?}");
-
                 routes.MapRoute(
                     name: "api",
                     template: "api/{controller=Account}/{action=Index}/{id?}");

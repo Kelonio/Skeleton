@@ -13,12 +13,8 @@ var core_1 = require("@angular/core");
 var FetchDataComponent = /** @class */ (function () {
     function FetchDataComponent(http, baseUrl) {
         var _this = this;
-        http.get(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(function (result) {
-            _this.forecasts = result;
-        }, function (error) { return console.error(error); });
-        http.get(baseUrl + 'api/SampleData/Users').subscribe(function (result) {
+        http.get(baseUrl + 'api/users').subscribe(function (result) {
             _this.users = result;
-            console.log(result);
         }, function (error) { return console.error(error); });
     }
     FetchDataComponent = __decorate([

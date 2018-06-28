@@ -39,14 +39,7 @@ namespace Skeleton.Controllers
         {
             var token = await _userService.CreateToken(login.Email, login.Password);
 
-            return token == "" ? (IActionResult)Unauthorized() : Ok(new { token });
-
-            /*
-            if (token=="")
-                return Unauthorized();
-            else
-                return Ok(new {token = token });
-            */
+            return token == "" ? (IActionResult)Unauthorized() : Ok(new { token });          
 
         }
 
@@ -56,20 +49,18 @@ namespace Skeleton.Controllers
         public UserDto GetUser(string id)
         {
            return _mapper.Map<UserDto>(_dataContext.Users.Find(id));
-        }
+        }      
 
-
-        [AllowAnonymous]
+        
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("api/users")]
-        public IEnumerable<UserDto> GetUsers()
+        public IEnumerable<UserDto> Users()
         {
-            var users = _dataContext.Users;
-            var userDtos = _mapper.Map<IList<UserDto>>(users);           
+            IEnumerable<User> users = _userService.GetUsers();
+            IEnumerable<UserDto> userDtos = _mapper.Map<IList<UserDto>>(users);
             return userDtos;
         }
-
-
 
         [AllowAnonymous]
         [HttpPost]
