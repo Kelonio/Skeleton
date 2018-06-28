@@ -38,10 +38,11 @@ export class AuthenticationService {
   public isAuthenticated(): boolean {
 
     const token = this.getToken();
+      
 
     // Check whether the token is expired and return
     // true or false
-    if (!token)
+    if (token != null)
       return jwtHelper.isTokenExpired(token);
     else
       false;

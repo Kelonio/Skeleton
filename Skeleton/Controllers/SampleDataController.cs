@@ -7,12 +7,32 @@ using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Skeleton.Models;
+using Skeleton.Services;
+using AutoMapper;
 
 namespace Skeleton.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+
+        public SampleDataController(IMapper mapper, IUserService userService)
+        {           
+            _mapper = mapper;
+            _userService = userService;
+        }
+
+        [HttpGet("[action]"), Authorize(Roles = "Admin")]
+        public IEnumerable<UserDto> Users()
+        {
+            IEnumerable<User> users = _userService.GetUsers();
+            IEnumerable<UserDto> userDtos = _mapper.Map<IList<UserDto>>(users);
+            return userDtos;
+        }
+
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

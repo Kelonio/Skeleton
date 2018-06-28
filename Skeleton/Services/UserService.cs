@@ -19,6 +19,7 @@ namespace Skeleton.Services
     {
         Task<string> CreateToken(string Email, string Password);
         Task<User> Create(User newUser);
+        IEnumerable<User> GetUsers();
     }
 
 
@@ -95,25 +96,28 @@ namespace Skeleton.Services
         /// 
         public async Task<User> Create(User newUser)
         {
-            var user = new User { UserName = newUser.UserName,
-                                  Email = newUser.Email,
-                                  SecurityStamp = Guid.NewGuid().ToString("D")
-                                };
 
-            IdentityResult result = await _userManager.CreateAsync(user, newUser.Password);
+            newUser.SecurityStamp = Guid.NewGuid().ToString("D"); // no se muy bien porque hay que hacer esto
 
+            IdentityResult result = await _userManager.CreateAsync(newUser, newUser.Password);
             
             if (!result.Succeeded) 
                 throw new AppException(result.Errors.First().Description); //sacamos solo el primero, result.error es un array
 
 
-            var roleresult = await _userManager.AddToRoleAsync(user, "User");
+            var roleresult = await _userManager.AddToRoleAsync(newUser, "User");
 
             if (!roleresult.Succeeded)
                 throw new AppException(roleresult.Errors.First().Description);               
             
 
-            return user;
+            return newUser;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            var users = _dataContext.Users;            
+            return users;
         }
 
 

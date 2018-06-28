@@ -34,8 +34,8 @@ export class UserComponent {
     this.role = this.auth.getRole();
 
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -58,7 +58,7 @@ export class UserComponent {
         .subscribe(
           data => {
             //this.alertService.success('Registration successful', true);
-            //.router.navigate(['/login']);
+            this.router.navigate(['fetch-data']);
             console.log('El usuario se ha registrado correctamente');
             console.log(data);
           },
