@@ -1,38 +1,31 @@
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>Skeleton</a>
-        </div>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-          <ul class='nav navbar-nav'>
-            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-              <a [routerLink]='["/"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-home'></span> Home
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/login"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Login
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Fetch users
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/users"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th'></span> Register User
-              </a>
-            </li>
-          </ul>
-        </div>
-    </div>
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]='["/"]'>Dashboard</a>
+      <a mat-list-item [routerLink]='["/login"]'>Login</a>
+      <a mat-list-item [routerLink]='["/fetch-data"]'>Users</a>
+      <a mat-list-item [routerLink]='["/tabla"]'>Tabla</a>
+      <a mat-list-item [routerLink]='["/users"]'>Register User</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Application Title</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

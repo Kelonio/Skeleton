@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
@@ -13,10 +14,8 @@ export class UserService {
   }
 
 
-
-
   getAll() {
-    return this.http.get<User[]>(`/users`);
+    return this.http.get<User[]>(`api/users`);
   }
 
   getById(id: number) {

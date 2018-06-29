@@ -15,7 +15,7 @@ var UserService = /** @class */ (function () {
         return this.http.post("/api/createuser", user);
     };
     UserService.prototype.getAll = function () {
-        return this.http.get("/users");
+        return this.http.get("api/users");
     };
     UserService.prototype.getById = function (id) {
         return this.http.get("/users/" + id);
