@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
 
 /*helpers*/
@@ -48,8 +47,7 @@ import { UserTableComponent } from './user-table/user-table.component';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,    
-    FetchDataComponent,
+    HomeComponent,
     LoginComponent,
     UserComponent,
     AlertComponent,

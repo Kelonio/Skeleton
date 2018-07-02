@@ -21,6 +21,8 @@ export class UserTableDataSource extends DataSource<User> {
   constructor(private paginator: MatPaginator, private sort: MatSort, private _data:User[]) {
     super();
     this.data = _data;
+    console.log(_data);
+
   }
    
 
@@ -77,7 +79,7 @@ export class UserTableDataSource extends DataSource<User> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'name': return compare(a.username, b.username, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'email': return compare(a.email, b.email, isAsc);
         default: return 0;
       }
     });

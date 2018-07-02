@@ -4,8 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component'
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { UserTableComponent } from './user-table/user-table.component';
@@ -17,10 +16,9 @@ import { RoleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'fetch-data', component: FetchDataComponent, canActivate: [RoleGuard], data: { expectedRole: 'Admin' } },
-  { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'tabla', component: UserTableComponent },
+  { path: 'login', component: LoginComponent },  
+  { path: 'user-registration', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'users-table', component: UserTableComponent, canActivate: [RoleGuard], data: { expectedRole: 'Admin' }}
   
 ];
 

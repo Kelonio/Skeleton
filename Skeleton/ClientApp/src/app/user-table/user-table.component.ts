@@ -19,18 +19,29 @@ export class UserTableComponent implements OnInit {
   
 
   constructor(private userService: UserService) {
+    this.userService.getAll().subscribe(users => {
+      this.dataSource = new UserTableDataSource(this.paginator, this.sort, users);
+    });
     
   }
 
+  /* constructor de fetcha data , para ver la injecion de la base url 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+
+    http.get<User[]>(baseUrl + 'api/users').subscribe(result => {
+      this.users = result;
+    }, error => console.error(error));
+  }
+  */
+
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'username'];
+  displayedColumns = ['email', 'username','firstname','lastname'];
 
   
   ngOnInit() {
 
-    this.userService.getAll().subscribe(users => {     
-      this.dataSource = new UserTableDataSource(this.paginator, this.sort, users);
-    });
+   
 
     
   }

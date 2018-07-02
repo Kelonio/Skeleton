@@ -11,15 +11,23 @@ var material_1 = require("@angular/material");
 var user_table_datasource_1 = require("./user-table-datasource");
 var UserTableComponent = /** @class */ (function () {
     function UserTableComponent(userService) {
-        this.userService = userService;
-        /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-        this.displayedColumns = ['id', 'username'];
-    }
-    UserTableComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.userService = userService;
+        /* constructor de fetcha data , para ver la injecion de la base url
+        constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+      
+          http.get<User[]>(baseUrl + 'api/users').subscribe(result => {
+            this.users = result;
+          }, error => console.error(error));
+        }
+        */
+        /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+        this.displayedColumns = ['email', 'username', 'firstname', 'lastname'];
         this.userService.getAll().subscribe(function (users) {
             _this.dataSource = new user_table_datasource_1.UserTableDataSource(_this.paginator, _this.sort, users);
         });
+    }
+    UserTableComponent.prototype.ngOnInit = function () {
     };
     __decorate([
         core_1.ViewChild(material_1.MatPaginator)

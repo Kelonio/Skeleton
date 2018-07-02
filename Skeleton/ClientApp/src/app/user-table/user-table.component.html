@@ -1,16 +1,28 @@
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Username Column -->
     <ng-container matColumnDef="username">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.username}}</mat-cell>
+    </ng-container>
+
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.firstname}}</mat-cell>
+    </ng-container>
+
+
+    <!-- Last name Column -->
+    <ng-container matColumnDef="lastname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.lastname}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -18,7 +30,7 @@
   </mat-table>
 
   <mat-paginator #paginator
-    [length]="dataSource.data.length"
+    [length]="dataSource?.data.length"
     [pageIndex]="0"
     [pageSize]="50"
     [pageSizeOptions]="[5, 50, 100, 250]">

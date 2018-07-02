@@ -26,6 +26,7 @@ var UserTableDataSource = /** @class */ (function (_super) {
         _this.sort = sort;
         _this._data = _data;
         _this.data = _data;
+        console.log(_data);
         return _this;
     }
     /**
@@ -74,7 +75,7 @@ var UserTableDataSource = /** @class */ (function (_super) {
             var isAsc = _this.sort.direction === 'asc';
             switch (_this.sort.active) {
                 case 'name': return compare(a.username, b.username, isAsc);
-                case 'id': return compare(+a.id, +b.id, isAsc);
+                case 'email': return compare(a.email, b.email, isAsc);
                 default: return 0;
             }
         });
