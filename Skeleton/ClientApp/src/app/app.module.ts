@@ -42,6 +42,16 @@ import { UserTableComponent } from './user-table/user-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
+/*i18n */
+
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+import localeEsExtra from '@angular/common/locales/extra/es';
+
+registerLocaleData(localeES, 'es-ES', localeEsExtra);
+
+
+
 @NgModule({
   declarations: [
     AppComponent,

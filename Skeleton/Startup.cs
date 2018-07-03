@@ -87,9 +87,7 @@ namespace Skeleton
             });
             
             services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = new PathString("/mvc/account/login");
-                options.LogoutPath = new PathString("/mvc/account/logout");
+            {              
 
                 //para que identity devuelva un 401 en vez de un 302 al login
 
@@ -211,7 +209,7 @@ namespace Skeleton
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start:es"); // esto llama a los scripts del  package.json, he puesto "start:es":"ng server --configuration=es"
                 }
             });
 
