@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
 export class UserComponent {
 
@@ -43,6 +44,16 @@ export class UserComponent {
     }
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls;}
+
+
+
+    getErrorMessage() {
+      return this.f.email.hasError('required') ? 'You must enter a value' :
+        this.f.email.hasError('email') ? 'Not a valid email' :
+          '';
+    }
+
+
 
     onSubmit() {
       this.submitted = true;

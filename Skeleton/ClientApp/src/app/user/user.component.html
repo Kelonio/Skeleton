@@ -1,51 +1,75 @@
-<h1>Create User</h1>
-Mi role es : {{role}}
+<!--<mat-card>
+  Mi role es : {{role}}
+</mat-card>-->
+<div class="component-container">
+  <div fxLayout="row">
+    <div fxFlex></div>
 
-<h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="FirstName">First Name</label>
-    <input type="text" formControlName="FirstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" />
-    <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
-      <div *ngIf="f.FirstName.errors.required">First Name is required</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="LastName">Last Name</label>
-    <input type="text" formControlName="LastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }" />
-    <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
-      <div *ngIf="f.LastName.errors.required">Last Name is required</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-      <div *ngIf="f.username.errors.required">Username is required</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="username">Email</label>
-    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-      <div *ngIf="f.email.errors.required">Email is required</div>
-    </div>
-  </div>
+    <div fxFlex="50">
+      <mat-card>
+        <mat-card-title>Registration</mat-card-title>
+        <mat-card-content>
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-      <div *ngIf="f.password.errors.required">Password is required</div>
-      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          <form [formGroup]="registerForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+
+
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Enter your first name" formControlName="FirstName" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Enter your last name" formControlName="LastName" required>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Enter your user name" formControlName="username" required>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Enter your email" formControlName="email" required>
+                <mat-error *ngIf="f.email.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <input type="password" matInput placeholder="Enter your password" formControlName="password" required>
+                <!--<mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+                <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>-->
+              </mat-form-field>
+            </div>
+
+            <mat-error *ngIf="descriptionError" class="alert alert-danger">{{descriptionError}}</mat-error>
+
+            <mat-card-actions fxLayout="row">
+              <div fxFlex>
+                <button [disabled]="loading" mat-raised-button color="primary">Register</button>
+              </div>
+              <div fxFlex>
+                <button [routerLink]="['/login']" mat-raised-button color="accent">Cancel</button>
+              </div>
+            </mat-card-actions>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </form>
+        </mat-card-content>
+      </mat-card>
     </div>
-  </div>
 
-  <div *ngIf="descriptionError" class="alert alert-danger">{{descriptionError}}</div>
-
-  <div class="form-group">
-    <button [disabled]="loading" class="btn btn-primary">Register</button>
-    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-    <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+    <div fxFlex></div>
   </div>
-</form>
+</div>
+
+  
+
+
+
+
+
+
+

@@ -35,12 +35,16 @@ var LoginComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    LoginComponent.prototype.isFieldInvalid = function (field) {
+        return ((!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+            (this.loginForm.get(field).untouched && this.formSubmitAttempt));
+    };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
+        this.formSubmitAttempt = true;
         // stop here if form is invalid
         if (this.loginForm.invalid) {
-            alert('form invalid');
             return;
         }
         this.loading = true;

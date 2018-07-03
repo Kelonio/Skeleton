@@ -36,6 +36,11 @@ var UserComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    UserComponent.prototype.getErrorMessage = function () {
+        return this.f.email.hasError('required') ? 'You must enter a value' :
+            this.f.email.hasError('email') ? 'Not a valid email' :
+                '';
+    };
     UserComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
@@ -62,6 +67,7 @@ var UserComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-user',
             templateUrl: './user.component.html',
+            styleUrls: ['./user.component.css']
         })
     ], UserComponent);
     return UserComponent;

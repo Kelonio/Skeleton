@@ -13,6 +13,7 @@ import { AuthenticationService } from '.././services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  private formSubmitAttempt: boolean;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -40,12 +41,22 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+
+
+  isFieldInvalid(field: string) { // {6}
+    return (
+      (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+      (this.loginForm.get(field).untouched && this.formSubmitAttempt)
+    );
+  }
+
   onSubmit() {
     this.submitted = true;
+    this.formSubmitAttempt = true;  
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      alert('form invalid');
+    if (this.loginForm.invalid) {     
+     
       return;
     }
 
