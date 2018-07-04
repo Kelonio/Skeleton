@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AuthenticationService } from '.././services/auth.service';
+
 @Component({
   selector: 'nav-menu',
   templateUrl: './nav-menu.component.html',
@@ -13,8 +15,9 @@ export class NavMenuComponent {
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
-    );
+  );
+   
     
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authenticationService: AuthenticationService) {}
   
   }

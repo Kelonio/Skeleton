@@ -15,6 +15,12 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
+  let userServiceStub: Partial<AuthenticationService>;
+
+  const authenticationService = jasmine.createSpyObj('AuthenticationService', ['login']);
+  //loginSpy = authenticationService.login.and.returnValue()
+  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
@@ -37,5 +43,9 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should login', () => {
+
   });
 });
