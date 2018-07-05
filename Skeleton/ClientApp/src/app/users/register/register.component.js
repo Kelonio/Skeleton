@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var operators_1 = require("rxjs/operators");
-var UserComponent = /** @class */ (function () {
-    function UserComponent(auth, formBuilder, router, userService) {
+var RegisterComponent = /** @class */ (function () {
+    function RegisterComponent(auth, formBuilder, router, userService) {
         this.auth = auth;
         this.formBuilder = formBuilder;
         this.router = router;
@@ -20,7 +20,7 @@ var UserComponent = /** @class */ (function () {
         this.submitted = false;
         this.descriptionError = "";
     }
-    UserComponent.prototype.ngOnInit = function () {
+    RegisterComponent.prototype.ngOnInit = function () {
         this.role = this.auth.getRole();
         this.registerForm = this.formBuilder.group({
             FirstName: ['', forms_1.Validators.required],
@@ -30,18 +30,18 @@ var UserComponent = /** @class */ (function () {
             password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(6)]]
         });
     };
-    Object.defineProperty(UserComponent.prototype, "f", {
+    Object.defineProperty(RegisterComponent.prototype, "f", {
         // convenience getter for easy access to form fields
         get: function () { return this.registerForm.controls; },
         enumerable: true,
         configurable: true
     });
-    UserComponent.prototype.getErrorMessage = function () {
+    RegisterComponent.prototype.getErrorMessage = function () {
         return this.f.email.hasError('required') ? 'You must enter a value' :
             this.f.email.hasError('email') ? 'Not a valid email' :
                 '';
     };
-    UserComponent.prototype.onSubmit = function () {
+    RegisterComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
         // stop here if form is invalid
@@ -63,14 +63,14 @@ var UserComponent = /** @class */ (function () {
             _this.descriptionError = error.error;
         });
     };
-    UserComponent = __decorate([
+    RegisterComponent = __decorate([
         core_1.Component({
-            selector: 'app-user',
-            templateUrl: './user.component.html',
-            styleUrls: ['./user.component.css']
+            selector: 'app-register',
+            templateUrl: './register.component.html',
+            styleUrls: ['./register.component.css']
         })
-    ], UserComponent);
-    return UserComponent;
+    ], RegisterComponent);
+    return RegisterComponent;
 }());
-exports.UserComponent = UserComponent;
-//# sourceMappingURL=user.component.js.map
+exports.RegisterComponent = RegisterComponent;
+//# sourceMappingURL=register.component.js.map

@@ -10,15 +10,9 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var login_component_1 = require("./login/login.component");
-var user_component_1 = require("./user/user.component");
-var user_table_component_1 = require("./user-table/user-table.component");
-var auth_guard_1 = require("./guards/auth.guard");
-var role_guard_1 = require("./guards/role.guard");
 exports.routes = [
     { path: '', component: dashboard_component_1.DashboardComponent, pathMatch: 'full' },
-    { path: 'login', component: login_component_1.LoginComponent },
-    { path: 'user-registration', component: user_component_1.UserComponent, canActivate: [auth_guard_1.AuthGuard] },
-    { path: 'users-table', component: user_table_component_1.UserTableComponent, canActivate: [role_guard_1.RoleGuard], data: { expectedRole: 'Admin' } }
+    { path: 'login', component: login_component_1.LoginComponent }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

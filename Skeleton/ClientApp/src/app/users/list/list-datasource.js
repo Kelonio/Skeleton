@@ -87,4 +87,4 @@ exports.UserTableDataSource = UserTableDataSource;
 function compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
-//# sourceMappingURL=user-table-datasource.js.map
+//# sourceMappingURL=list-datasource.js.map

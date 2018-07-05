@@ -7,14 +7,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-/*enviroment*/
+
+/* Custom Modules */
 import { environment } from '../environments/environment';
+
+/*enviroment*/
+import { UsersModule } from './users/users.module';
 
 
 /* components */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 
@@ -38,7 +41,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { UserTableComponent } from './user-table/user-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -57,11 +59,10 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    LoginComponent,
-    UserComponent,
+    LoginComponent,   
     AlertComponent,
-    DashboardComponent,
-    UserTableComponent    
+    DashboardComponent
+        
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -85,7 +86,9 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    //custom modules
+    UsersModule
   ],
   providers: [ //teoricamente en Angular6 no hace falta meter los providers, pero no va 
     UserService, 
