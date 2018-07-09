@@ -53,7 +53,7 @@ var RegisterComponent = /** @class */ (function () {
             .pipe(operators_1.first())
             .subscribe(function (data) {
             //this.alertService.success('Registration successful', true);
-            _this.router.navigate(['fetch-data']);
+            _this.router.navigate(['/users/list']);
             console.log('El usuario se ha registrado correctamente');
             console.log(data);
         }, function (error) {

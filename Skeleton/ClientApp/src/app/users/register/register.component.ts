@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './../../services/auth.service';
-import { UserService } from './../../services/user.service';
+import { UserService } from './../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           //this.alertService.success('Registration successful', true);
-          this.router.navigate(['fetch-data']);
+          this.router.navigate(['/users/list']);
           console.log('El usuario se ha registrado correctamente');
           console.log(data);
         },

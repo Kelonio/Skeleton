@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { ListComponent } from './list/list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 /* deberiamos meter los guards en el modulo ???*/
 import { AuthGuard } from './../guards/auth.guard';
@@ -16,7 +17,8 @@ const usersRoutes: Routes = [
     path: 'users',
     children: [
       { path: 'list', component: ListComponent, canActivate: [RoleGuard], data: { expectedRole: 'Admin' } },
-      { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] }
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: 'register', component: RegisterComponent }
     ]
   }
 ];

@@ -15,6 +15,7 @@ namespace Skeleton.Controllers
 {
     
     [ApiController]
+    [Route("api/users/")]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -31,21 +32,29 @@ namespace Skeleton.Controllers
             _userService = userService;
         }
 
-
         [AllowAnonymous]
-        [HttpPost]
-        [Route("api/user/token")]
+        [HttpPost("token")]        
         public async Task<IActionResult> CreateToken([FromBody]UserLoginDto login)
         {
             var token = await _userService.CreateToken(login.Email, login.Password);
-
             return token == "" ? (IActionResult)Unauthorized() : Ok(new { token });          
 
         }
 
+
         [AllowAnonymous]
-        [HttpGet]
-        [Route("api/user")]
+        [HttpGet("profile/{email}")]        
+        public UserDto GetProfile(string email)
+        {
+            //solamente si es el mismo email que la token
+            User user = _dataContext.Users.Where(u => u.Email == email).FirstOrDefault();
+            return _mapper.Map<UserDto>(user);
+        }
+
+
+
+        [Authorize(Roles = "Admin")] 
+        [HttpGet("user/{id}")]        
         public UserDto GetUser(string id)
         {
            return _mapper.Map<UserDto>(_dataContext.Users.Find(id));
@@ -53,8 +62,7 @@ namespace Skeleton.Controllers
 
         
         [Authorize(Roles = "Admin")]
-        [HttpGet]
-        [Route("api/users")]
+        [HttpGet]  //ruta por defecto api/users       
         public IEnumerable<UserDto> Users()
         {
             IEnumerable<User> users = _userService.GetUsers();
@@ -63,8 +71,7 @@ namespace Skeleton.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [Route("api/createuser")]
+        [HttpPost("create")]        
         public async Task<IActionResult> CreateUser([FromBody]UserDto newUserDto)
         {
             User newUser = _mapper.Map<User>(newUserDto);

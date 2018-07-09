@@ -8,10 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var home_component_1 = require("./home/home.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var login_component_1 = require("./login/login.component");
 exports.routes = [
-    { path: '', component: dashboard_component_1.DashboardComponent, pathMatch: 'full' },
+    { path: '', component: home_component_1.HomeComponent, pathMatch: 'full' },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'login', component: login_component_1.LoginComponent }
 ];
 var AppRoutingModule = /** @class */ (function () {
