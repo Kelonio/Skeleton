@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -41,14 +42,24 @@ namespace Skeleton.Controllers
 
         }
 
+        /* core 2.1 */
 
-        [AllowAnonymous]
-        [HttpGet("profile/{email}")]        
-        public UserDto GetProfile(string email)
+        [Authorize]
+        [HttpGet("profile/{email}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public ActionResult<UserDto> GetProfile(string email)
         {
             //solamente si es el mismo email que la token
+            var identity = (ClaimsIdentity)User.Identity;  
+            IEnumerable<Claim> claims = identity.Claims;
+            if (claims.Single(c => c.Type == "sub").Value != email)
+                return Unauthorized();
+
+
             User user = _dataContext.Users.Where(u => u.Email == email).FirstOrDefault();
-            return _mapper.Map<UserDto>(user);
+            UserDto userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
 

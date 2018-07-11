@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from "rxjs/operators";
+import { Observable, throwError, EMPTY, of } from 'rxjs';
+import { map, tap, catchError } from "rxjs/operators";
+
+import { AlertService } from './../services/alert.service';
+import { ErrorService } from './../services/error.service';
+import { Router } from '@angular/router';
+
+
+
+
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+
+  constructor(private alertService: AlertService, private router: Router, private errorService: ErrorService) {
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -16,7 +28,28 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request);
+
+    
+   /* interceptor para la respuesta , los 500 ,401 los mandamos al componente error, utilizamos un
+    * servicio errorService para pasarle el objeto entero
+    * */
+    
+    return next.handle(request).pipe(
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          // do stuff with response if you want
+        }
+      }
+      ,(err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          this.errorService.error = err;
+          this.router.navigateByUrl('app-error');
+          //this.router.navigate(['error', { error: err }]); err es un objeto no lo puedo pasar bien por la url          
+        }
+      })
+      
+        
+    );
 
 
     /* esto es para interceptar la respuesta y si es un 401 ir a login,

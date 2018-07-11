@@ -13,7 +13,9 @@ var ProfileComponent = /** @class */ (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getByEmail('admin@inercya.com').subscribe(function (res) {
+        //deberia sacar esto de un servicio
+        var email = JSON.parse(localStorage.getItem('currentUser')).email;
+        this.userService.getByEmail(email).subscribe(function (res) {
             _this.profile = res;
             console.log(_this.profile);
         });

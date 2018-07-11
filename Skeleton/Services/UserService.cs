@@ -62,7 +62,7 @@ namespace Skeleton.Services
 
                 List<Claim> claims = new List<Claim>
                 {
-                        new Claim(JwtRegisteredClaimNames.Sub, Email),
+                        new Claim(JwtRegisteredClaimNames.Sub, Email),  //the "sub" (subject) claim identifies the principal that is the subject of the JWT.
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(ClaimTypes.NameIdentifier, user.Id)
                 };

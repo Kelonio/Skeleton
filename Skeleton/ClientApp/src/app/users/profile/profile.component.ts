@@ -14,7 +14,10 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getByEmail('admin@inercya.com').subscribe(res => {
+    //deberia sacar esto de un servicio
+    let email = JSON.parse(localStorage.getItem('currentUser')).email; 
+
+    this.userService.getByEmail(email).subscribe(res => {
       this.profile = res;
       console.log(this.profile);
     });

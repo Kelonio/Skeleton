@@ -33,6 +33,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 /* Services*/
 import { AuthenticationService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
+import { ErrorService } from './services/error.service';
 
 /* Guards*/
 import { AuthGuard } from './guards/auth.guard';
@@ -53,6 +54,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
+import { ErrorComponent } from './error/error.component';
 
 
 registerLocaleData(localeES, 'es-ES', localeEsExtra);
@@ -67,7 +69,8 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
     HomeComponent,
     LoginComponent,   
     AlertComponent,
-    DashboardComponent
+    DashboardComponent,
+    ErrorComponent
     
         
   ],
@@ -99,6 +102,7 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
   ],
   providers: [ //teoricamente en Angular6 no hace falta meter los providers, pero no va   
     AlertService,
+    ErrorService,
     AuthGuard,
     RoleGuard,
     AuthenticationService,
