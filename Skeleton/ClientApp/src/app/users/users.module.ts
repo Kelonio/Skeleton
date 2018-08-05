@@ -10,6 +10,7 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { UsersRouting } from './users.routing';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   providers: [
@@ -42,6 +43,6 @@ import { UsersRouting } from './users.routing';
     //Rutas
     UsersRouting
   ],
-  declarations: [RegisterComponent, ListComponent]
+  declarations: [RegisterComponent, ListComponent, ProfileComponent]
 })
 export class UsersModule { }

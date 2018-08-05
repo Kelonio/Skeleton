@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,7 @@ namespace Skeleton.Controllers
 {
     
     [ApiController]
+    [Route("api/users/")]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -31,21 +33,39 @@ namespace Skeleton.Controllers
             _userService = userService;
         }
 
-
         [AllowAnonymous]
-        [HttpPost]
-        [Route("api/user/token")]
+        [HttpPost("token")]        
         public async Task<IActionResult> CreateToken([FromBody]UserLoginDto login)
         {
             var token = await _userService.CreateToken(login.Email, login.Password);
-
             return token == "" ? (IActionResult)Unauthorized() : Ok(new { token });          
 
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("api/user")]
+        /* core 2.1 */
+
+        [Authorize]
+        [HttpGet("profile/{email}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public ActionResult<UserDto> GetProfile(string email)
+        {
+            //solamente si es el mismo email que la token
+            var identity = (ClaimsIdentity)User.Identity;  
+            IEnumerable<Claim> claims = identity.Claims;
+            if (claims.Single(c => c.Type == "sub").Value != email)
+                return Unauthorized();
+
+
+            User user = _dataContext.Users.Where(u => u.Email == email).FirstOrDefault();
+            UserDto userDto = _mapper.Map<UserDto>(user);
+            return userDto;
+        }
+
+
+
+        [Authorize(Roles = "Admin")] 
+        [HttpGet("user/{id}")]        
         public UserDto GetUser(string id)
         {
            return _mapper.Map<UserDto>(_dataContext.Users.Find(id));
@@ -53,8 +73,7 @@ namespace Skeleton.Controllers
 
         
         [Authorize(Roles = "Admin")]
-        [HttpGet]
-        [Route("api/users")]
+        [HttpGet]  //ruta por defecto api/users       
         public IEnumerable<UserDto> Users()
         {
             IEnumerable<User> users = _userService.GetUsers();
@@ -63,8 +82,7 @@ namespace Skeleton.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [Route("api/createuser")]
+        [HttpPost("create")]        
         public async Task<IActionResult> CreateUser([FromBody]UserDto newUserDto)
         {
             User newUser = _mapper.Map<User>(newUserDto);

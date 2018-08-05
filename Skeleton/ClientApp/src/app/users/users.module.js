@@ -16,6 +16,7 @@ var router_1 = require("@angular/router");
 var material_1 = require("@angular/material");
 var flex_layout_1 = require("@angular/flex-layout");
 var users_routing_1 = require("./users.routing");
+var profile_component_1 = require("./profile/profile.component");
 var UsersModule = /** @class */ (function () {
     function UsersModule() {
     }
@@ -50,7 +51,7 @@ var UsersModule = /** @class */ (function () {
                 //Rutas
                 users_routing_1.UsersRouting
             ],
-            declarations: [register_component_1.RegisterComponent, list_component_1.ListComponent]
+            declarations: [register_component_1.RegisterComponent, list_component_1.ListComponent, profile_component_1.ProfileComponent]
         })
     ], UsersModule);
     return UsersModule;

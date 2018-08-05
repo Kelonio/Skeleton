@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [routerLink]='["/"]'>
+    <mat-icon>home</mat-icon>
+    {{ title }}
+  </button>
+
+  <span class="fill-remaining-space"></span>
+
+  <!--<button mat-button>
+    <mat-icon>language</mat-icon>
+  </button>
+
+  <button mat-button color="warn">Text</button>-->
+  <button mat-button [routerLink]='["/users/register"]'>
+    <mat-icon>perm_identity</mat-icon>
+    <span i18n>Register</span>
+  </button>  
+
+  <span *ngIf="(isLoggedIn | async)">
+
+    <button mat-button [routerLink]='["/dashboard"]'>
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </button>
+
+    <button mat-button [routerLink]='["/users/list"]'>
+      <mat-icon>view_list</mat-icon>
+      <span i18n>Users</span>
+    </button>
+
+    <button mat-button [routerLink]='["/users/profile"]'>
+      <mat-icon>account_circle</mat-icon>
+      <span i18n>Profile</span>
+    </button>
+
+    <button mat-icon-button [routerLink]='["/"]' (click)="authenticationService.logout()" >
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </span>
+
+  
+
+  <button mat-button *ngIf="!(isLoggedIn | async)" [routerLink]='["/login"]' >
+    <mat-icon>get_app</mat-icon>
+    <span i18n>Log in</span>
+  </button>
+
+</mat-toolbar>
+
+<mat-card>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+    <alert></alert>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+
+

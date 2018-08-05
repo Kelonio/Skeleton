@@ -19,20 +19,23 @@ var UserService = /** @class */ (function () {
         this.http = http;
     }
     UserService.prototype.register = function (user) {
-        return this.http.post("/api/createuser", user);
+        return this.http.post("/api/users/create", user);
     };
     UserService.prototype.getAll = function () {
         return this.http.get("api/users");
     };
-    UserService.prototype.getById = function (id) {
-        return this.http.get("/users/" + id);
+    UserService.prototype.getByEmail = function (email) {
+        return this.http.get("api/users/profile/" + email);
     };
-    //register(user: User) {
-    //  return this.http.post(`/users/register`, user);
-    //}
+    // no se utiliza
+    UserService.prototype.getById = function (id) {
+        return this.http.get("/api/users/user/" + id);
+    };
+    //no se utiliza
     UserService.prototype.update = function (user) {
         return this.http.put("/users/" + user.id, user);
     };
+    //no se utiliza por ahora
     UserService.prototype.delete = function (id) {
         return this.http.delete("/users/" + id);
     };

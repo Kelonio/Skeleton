@@ -21,14 +21,19 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 
+
+/* componentes navegacion */
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+
 /*helpers*/
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 
 /* Services*/
 import { AuthenticationService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { AlertService } from './services/alert.service';
+import { ErrorService } from './services/error.service';
 
 /* Guards*/
 import { AuthGuard } from './guards/auth.guard';
@@ -39,7 +44,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -49,6 +54,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
+import { ErrorComponent } from './error/error.component';
+
 
 registerLocaleData(localeES, 'es-ES', localeEsExtra);
 
@@ -58,10 +65,13 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
   declarations: [
     AppComponent,
     NavMenuComponent,
+    NavToolbarComponent,
     HomeComponent,
     LoginComponent,   
     AlertComponent,
-    DashboardComponent
+    DashboardComponent,
+    ErrorComponent
+    
         
   ],
   imports: [
@@ -90,9 +100,9 @@ registerLocaleData(localeES, 'es-ES', localeEsExtra);
     //custom modules
     UsersModule
   ],
-  providers: [ //teoricamente en Angular6 no hace falta meter los providers, pero no va 
-    UserService, 
+  providers: [ //teoricamente en Angular6 no hace falta meter los providers, pero no va   
     AlertService,
+    ErrorService,
     AuthGuard,
     RoleGuard,
     AuthenticationService,

@@ -22,28 +22,28 @@ export class UserService {
 
 
   register(user: User) {
-    return this.http.post(`/api/createuser`, user);
+    return this.http.post(`/api/users/create`, user);
   }
-
 
   getAll() {
     return this.http.get<User[]>(`api/users`);
   }
 
-  getById(id: number) {
-    return this.http.get(`/users/` + id);
+  getByEmail(email: string) {
+    return this.http.get(`api/users/profile/` + email);
   }
 
-  //register(user: User) {
-  //  return this.http.post(`/users/register`, user);
-  //}
-
-   
-
+  // no se utiliza
+  getById(id: string) {
+    return this.http.get(`/api/users/user/` + id);
+  }
+     
+  //no se utiliza
   update(user: User) {
     return this.http.put(`/users/` + user.id, user);
   }
 
+  //no se utiliza por ahora
   delete(id: number) {
     return this.http.delete(`/users/` + id);
   }
